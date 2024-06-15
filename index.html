@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Igrica: Pogodi broj</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        background-color: #f0f0f0;
+        margin: 50px;
+    }
+    #game-container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    button {
+        padding: 10px 20px;
+        font-size: 16px;
+        margin-top: 10px;
+        cursor: pointer;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+    }
+    button:hover {
+        background-color: #0056b3;
+    }
+    #result {
+        font-size: 20px;
+        font-weight: bold;
+        margin-top: 20px;
+    }
+</style>
+</head>
+<body>
+    <div id="game-container">
+        <h1>Igrica: Pogodi broj</h1>
+        <p>Pokušajte da pogodite broj između 1 i 100.</p>
+        <input type="number" id="guess" min="1" max="100">
+        <button onclick="checkGuess()">Pogodi</button>
+        <p id="result"></p>
+    </div>
+
+    <script>
+        // Generišemo slučajni broj koji treba pogoditi
+        const randomNumber = Math.floor(Math.random() * 100) + 1;
+        let attempts = 0;
+
+        function checkGuess() {
+            const guess = parseInt(document.getElementById('guess').value);
+            if (isNaN(guess) || guess < 1 || guess > 100) {
+                alert("Molimo unesite broj između 1 i 100.");
+                return;
+            }
+
+            attempts++;
+
+            const resultElement = document.getElementById('result');
+            if (guess === randomNumber) {
+                resultElement.textContent = `Čestitamo! Pogodili ste broj ${randomNumber} u ${attempts} pokušaja.`;
+                resultElement.style.color = 'green';
+                document.getElementById('guess').disabled = true;
+            } else if (guess < randomNumber) {
+                resultElement.textContent = `Pokušajte ponovo. Broj je veći od ${guess}.`;
+                resultElement.style.color = 'blue';
+            } else {
+                resultElement.textContent = `Pokušajte ponovo. Broj je manji od ${guess}.`;
+                resultElement.style.color = 'orange';
+            }
+        }
+    </script>
+</body>
+</html>
